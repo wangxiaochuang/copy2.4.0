@@ -5,3 +5,4 @@ bootsect
 setup
 zImage
 build
+.vscode

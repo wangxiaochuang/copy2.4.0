@@ -19,7 +19,7 @@ tools/build: tools/build.c
 bootsect: bootsect.o
 	$(LD) -Ttext 0x0 -s --oformat binary $< -o $@
 
-setup: setup.o
+setup: setup.o video.S Makefile $(BOOT_INCL) $(TOPDIR)/include/linux/version.h
 	$(LD) -Ttext 0x0 -s --oformat binary -e begtext -o $@ $<
 
 dep:

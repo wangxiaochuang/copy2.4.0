@@ -105,3 +105,7 @@
  * Kernel hacking
  */
 #undef  CONFIG_MAGIC_SYSRQ
+
+#define STANDARD_MEMORY_BIOS_CALL
+
+#define __KERNEL__

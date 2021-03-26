@@ -1,2 +1,2 @@
-all: head.o
+all: head.o init_task.o
 
