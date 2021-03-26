@@ -1,3 +1,7 @@
 *.o
+*.out
 vmlinux
 bootsect
+setup
+zImage
+build

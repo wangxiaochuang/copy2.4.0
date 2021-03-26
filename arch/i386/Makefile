@@ -25,3 +25,8 @@ FORCE: ;
 zImage: vmlinux
 	@$(MAKEBOOT) zImage
 
+zdisk: vmlinux
+	@$(MAKEBOOT) BOOTIMAGE=zImage zdisk
+
+archclean:
+	@$(MAKEBOOT) clean
