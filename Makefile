@@ -46,12 +46,16 @@ endif
 
 CPPFLAGS := -D__KERNEL__ -I$(HPATH)
 
-CFLAGS := $(CPPFLAGS) -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -fno-strict-aliasing
+EXTRACFLAGS = -fno-stack-protector -Wno-missing-braces -fno-builtin
+CFLAGS := $(CPPFLAGS) -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -fno-strict-aliasing $(EXTRACFLAGS)
 AFLAGS := -D__ASSEMBLY__ $(CPPFLAGS)
 
 export ROOT_DEV = 
 
-SUBDIRS =
+CORE_FILES = kernel/kernel.o
+
+LIBS		=$(TOPDIR)/lib/lib.a
+SUBDIRS = kernel lib
 
 include arch/$(ARCH)/Makefile
 
@@ -62,8 +66,13 @@ export  NETWORKS DRIVERS LIBS HEAD LDFLAGS LINKFLAGS MAKEBOOT ASFLAGS
 boot: vmlinux
 	@$(MAKE) CFLAGS="$(CFLAGS) $(CFLAGS_KERNEL)" -C arch/$(ARCH)/boot
 
-vmlinux: $(CONFIGURATION) linuxsubdirs
-	$(LD) $(LINKFLAGS) $(HEAD) -o vmlinux
+vmlinux: $(CONFIGURATION) init/main.o linuxsubdirs
+	$(LD) $(LINKFLAGS) $(HEAD) init/main.o \
+	--start-group \
+	$(CORE_FILES) \
+	$(LIBS) \
+	--end-group \
+	-o vmlinux
 
 symlinks:
 	# rm -f include/asm

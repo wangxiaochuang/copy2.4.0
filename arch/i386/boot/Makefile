@@ -14,7 +14,8 @@ zdisk: $(BOOTIMAGE)
 	dd conv=notrunc bs=8192 if=$(BOOTIMAGE) of=$(TOPDIR)/../myfd.img
 
 tools/build: tools/build.c
-	$(HOSTCC) $(HOSTCFLAGS) -o $@ $< -I$(TOPDIR)/include
+	# $(HOSTCC) $(HOSTCFLAGS) -o $@ $< -I$(TOPDIR)/include
+	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
 
 bootsect: bootsect.o
 	$(LD) -Ttext 0x0 -s --oformat binary $< -o $@

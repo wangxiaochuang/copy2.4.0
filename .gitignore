@@ -1,4 +1,5 @@
 *.o
+*.a
 *.out
 vmlinux
 bootsect
@@ -6,3 +7,4 @@ setup
 zImage
 build
 .vscode
+*.flags

@@ -52,6 +52,7 @@
 #define _LINUX_TIMEX_H
 
 #include <asm/param.h>
+#include <linux/time.h>
 
 /*
  * The following defines establish the engineering parameters of the PLL

@@ -108,4 +108,6 @@
 
 #define STANDARD_MEMORY_BIOS_CALL
 
+#ifndef __KERNEL__
 #define __KERNEL__
+#endif

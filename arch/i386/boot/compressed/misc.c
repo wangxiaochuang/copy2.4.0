@@ -4,9 +4,6 @@
 #define OF(args)  args
 #define STATIC static
 
-void* memcpy(void* __dest, __const void* __src,
-			    size_t __n);
-
 #undef memset
 #undef memcpy
 #define memzero(s, n)     memset ((s), 0, (n))
@@ -281,8 +278,4 @@ int decompress_kernel(struct moveparams *mv, void *rmode) {
 	puts("Ok, booting the kernel.\n");
 	if (high_loaded) close_output_buffer_if_we_run_high(mv);
 	return high_loaded;
-}
-
-void __stack_chk_fail() {
-	__asm__ ("hlt");
 }

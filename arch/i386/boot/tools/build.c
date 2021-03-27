@@ -7,7 +7,7 @@
 #include <sys/sysmacros.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <asm/boot.h>
+#include "../../../../include/asm/boot.h"
 
 typedef unsigned char byte;
 typedef unsigned short word;

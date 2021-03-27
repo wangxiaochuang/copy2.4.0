@@ -4,6 +4,7 @@
 
 #include <linux/linkage.h>
 #include <linux/ptrace.h>
+#include <asm/current.h>
 
 typedef void (*lcall7_func)(int, struct pt_regs *);
 
@@ -16,5 +17,7 @@ struct exec_domain {
 	struct module * module;
 	struct exec_domain *next;
 };
+
+extern struct exec_domain default_exec_domain;
 
 #endif

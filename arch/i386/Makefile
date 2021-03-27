@@ -11,6 +11,8 @@ HEAD := arch/i386/kernel/head.o arch/i386/kernel/init_task.o
 
 SUBDIRS += arch/i386/kernel
 
+CORE_FILES := arch/i386/kernel/kernel.o $(CORE_FILES)
+
 arch/i386/kernel: dummy
 	$(MAKE) linuxsubdirs SUBDIRS=arch/i386/kernel
 
