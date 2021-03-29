@@ -3,10 +3,13 @@
 
 #include <linux/types.h>
 
+
 /* Avoid too many header ordering problems.  */
 struct siginfo;
 
 #ifdef __KERNEL__
+
+extern void * memcpy(void *,const void *,__kernel_size_t);
 /* Most things should be clean enough to redefine this at will, if care
    is taken to make libc match.  */
 

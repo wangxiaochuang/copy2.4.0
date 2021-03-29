@@ -67,7 +67,7 @@ startup_32:
 
 #ifdef CONFIG_SMP
 	hlt
-#endif CONFIG_SMP
+#endif
 
 /*
  * Clear BSS first so that there are no surprises...

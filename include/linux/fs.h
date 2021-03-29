@@ -52,9 +52,6 @@ struct files_stat_struct {
 	int nr_free_files;	/* read only */
 	int max_files;		/* tunable */
 };
-extern struct files_stat_struct files_stat;
-extern int max_super_blocks, nr_super_blocks;
-extern int leases_enable, dir_notify_enable, lease_break_time;
 
 #define NR_FILE  8192	/* this can well be larger on a larger system */
 #define NR_RESERVED_FILES 10 /* reserved for root */
@@ -259,7 +256,6 @@ void init_buffer(struct buffer_head *, bh_end_io_t *, void *);
 
 #define bh_offset(bh)		((unsigned long)(bh)->b_data & ~PAGE_MASK)
 
-extern void set_bh_page(struct buffer_head *bh, struct page *page, unsigned long offset);
 
 #define touch_buffer(bh)	SetPageReferenced(bh->b_page)
 
@@ -396,7 +392,6 @@ extern spinlock_t files_lock;
 #define get_file(x)	atomic_inc(&(x)->f_count)
 #define file_count(x)	atomic_read(&(x)->f_count)
 
-extern int init_private_file(struct file *, struct dentry *, int);
 
 #define FL_POSIX	1
 #define FL_FLOCK	2
@@ -425,25 +420,7 @@ extern struct list_head file_lock_list;
 
 #include <linux/fcntl.h>
 
-extern int fcntl_getlk(unsigned int, struct flock *);
-extern int fcntl_setlk(unsigned int, unsigned int, struct flock *);
-
-extern int fcntl_getlk64(unsigned int, struct flock64 *);
-extern int fcntl_setlk64(unsigned int, unsigned int, struct flock64 *);
-
 /* fs/locks.c */
-extern void locks_init_lock(struct file_lock *);
-extern void locks_copy_lock(struct file_lock *, struct file_lock *);
-extern void locks_remove_posix(struct file *, fl_owner_t);
-extern void locks_remove_flock(struct file *);
-extern struct file_lock *posix_test_lock(struct file *, struct file_lock *);
-extern int posix_lock_file(struct file *, struct file_lock *, unsigned int);
-extern void posix_block_lock(struct file_lock *, struct file_lock *);
-extern void posix_unblock_lock(struct file_lock *);
-extern int __get_lease(struct inode *inode, unsigned int flags);
-extern time_t lease_get_mtime(struct inode *);
-extern int lock_may_read(struct inode *, loff_t start, unsigned long count);
-extern int lock_may_write(struct inode *, loff_t start, unsigned long count);
 
 struct fasync_struct {
 	int	magic;
@@ -453,13 +430,6 @@ struct fasync_struct {
 };
 
 #define FASYNC_MAGIC 0x4601
-
-/* SMP safe fasync helpers: */
-extern int fasync_helper(int, struct file *, int, struct fasync_struct **);
-/* can be called from interrupts */
-extern void kill_fasync(struct fasync_struct **, int, int);
-/* only for net: no internal synchronization */
-extern void __kill_fasync(struct fasync_struct *, int, int);
 
 struct nameidata {
 	struct dentry *dentry;

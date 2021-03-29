@@ -66,8 +66,8 @@ export  NETWORKS DRIVERS LIBS HEAD LDFLAGS LINKFLAGS MAKEBOOT ASFLAGS
 boot: vmlinux
 	@$(MAKE) CFLAGS="$(CFLAGS) $(CFLAGS_KERNEL)" -C arch/$(ARCH)/boot
 
-vmlinux: $(CONFIGURATION) init/main.o linuxsubdirs
-	$(LD) $(LINKFLAGS) $(HEAD) init/main.o \
+vmlinux: $(CONFIGURATION) init/main.o init/version.o linuxsubdirs
+	$(LD) $(LINKFLAGS) $(HEAD) init/main.o init/version.o \
 	--start-group \
 	$(CORE_FILES) \
 	$(LIBS) \

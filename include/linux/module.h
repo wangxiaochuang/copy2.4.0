@@ -61,4 +61,39 @@ struct module
 	const char *kernel_data;	/* Reserved for kernel internal use */
 };
 
+#if defined(__GENKSYMS__)
+
+/* We want the EXPORT_SYMBOL tag left intact for recognition.  */
+
+#elif !defined(AUTOCONF_INCLUDED)
+
+#define __EXPORT_SYMBOL(sym,str)   error config_must_be_included_before_module
+#define EXPORT_SYMBOL(var)	   error config_must_be_included_before_module
+#define EXPORT_SYMBOL_NOVERS(var)  error config_must_be_included_before_module
+
+#elif !defined(CONFIG_MODULES)
+
+#define __EXPORT_SYMBOL(sym,str)
+#define EXPORT_SYMBOL(var)
+#define EXPORT_SYMBOL_NOVERS(var)
+
+#else
+
+#define __EXPORT_SYMBOL(sym, str)			\
+const char __kstrtab_##sym[]				\
+__attribute__((section(".kstrtab"))) = str;		\
+const struct module_symbol __ksymtab_##sym 		\
+__attribute__((section("__ksymtab"))) =			\
+{ (unsigned long)&sym, __kstrtab_##sym }
+
+#if defined(MODVERSIONS) || !defined(CONFIG_MODVERSIONS)
+#define EXPORT_SYMBOL(var)  __EXPORT_SYMBOL(var, __MODULE_STRING(var))
+#else
+#define EXPORT_SYMBOL(var)  __EXPORT_SYMBOL(var, __MODULE_STRING(__VERSIONED_SYMBOL(var)))
+#endif
+
+#define EXPORT_SYMBOL_NOVERS(var)  __EXPORT_SYMBOL(var, __MODULE_STRING(var))
+
+#endif /* __GENKSYMS__ */
+
 #endif

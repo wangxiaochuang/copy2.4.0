@@ -3,7 +3,7 @@ SYSTEM = $(TOPDIR)/vmlinux
 
 OBJECTS = $(HEAD) misc.o
 
-CFLAGS = $(CPPFLAGS) -O2 -DSTDC_HEADERS -fno-stack-protector
+CFLAGS = $(CPPFLAGS) -O2 -DSTDC_HEADERS -fno-stack-protector -fno-builtin
 ZLDFLAGS = -e startup_32
 
 ZIMAGE_OFFSET = 0x1000

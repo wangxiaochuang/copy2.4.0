@@ -136,16 +136,16 @@ struct thread_struct {
 	unsigned long	io_bitmap[IO_BITMAP_SIZE+1];
 };
 
-// #define INIT_THREAD  {						\
-// 	0,							\
-// 	0, 0, 0, 0, 						\
-// 	{ [0 ... 7] = 0 },	/* debugging registers */	\
-// 	0, 0, 0,						\
-// 	{ { 0, }, },		/* 387 state */			\
-// 	0,0,0,0,0,0,						\
-// 	0,{~0,}			/* io permissions */		\
-// }
-#define INIT_THREAD  { 0, 0, 0, 0, 0, { [0 ... 7] = 0 }, 0, 0, 0, { { 0, }, }, 0,0,0,0,0,0, 0,{~0,} }
+#define INIT_THREAD  {						\
+	0,							\
+	0, 0, 0, 0, 						\
+	{ [0 ... 7] = 0 },	/* debugging registers */	\
+	0, 0, 0,						\
+	{ { 0, }, },		/* 387 state */			\
+	0,0,0,0,0,0,						\
+	0,{~0,}			/* io permissions */		\
+}
+// #define INIT_THREAD  { 0, 0, 0, 0, 0, { [0 ... 7] = 0 }, 0, 0, 0, { { 0, }, }, 0,0,0,0,0,0, 0,{~0,} }
 
 #define INIT_MMAP \
 { &init_mm, 0, 0, NULL, PAGE_SHARED, VM_READ | VM_WRITE | VM_EXEC, 1, NULL, NULL }
